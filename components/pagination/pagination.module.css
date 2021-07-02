@@ -1,0 +1,36 @@
+.entries {
+    margin-left: 8%;
+}
+
+.pagination {
+    margin-right: 7%;
+}
+
+.previous {
+    background-color: white;
+    border: solid 0.5px rgb(144, 148, 146);
+    border-radius: 4px 0px 0px 4px;
+}
+
+.subpagination {
+    background-color: white;
+    border-top: solid 0.5px rgb(144, 148, 146);
+    border-bottom: solid 0.5px rgb(144, 148, 146);
+    border-right: solid 0.5px rgb(144, 148, 146);
+}
+
+/* .subpagination :active {
+    background-color: rgb(25, 101, 241);
+}
+
+.subpagination :hover {
+    background-color: rgb(142, 201, 250);
+} */
+
+.next {
+    background-color: white;
+    border-top: solid 0.5px rgb(144, 148, 146);
+    border-bottom: solid 0.5px rgb(144, 148, 146);
+    border-right: solid 0.5px rgb(144, 148, 146);
+    border-radius: 0px 4px 4px 0px;
+}

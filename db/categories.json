@@ -1,0 +1,64 @@
+{
+  "categories": [
+    {
+      "id": "04b663a4-931f-4c98-acfd-5507171c6da",
+      "name": "category 111",
+      "description": "Inside the file, add a function that will take an item as an argument and will send the data using the POST method to the API. As before, you can use the Fetch API. This time, you’ll need more information. Add an object of options as the second argument. Include the method—POST—along with headers to set the Content-Type to application/json. Finally, send the new object in the body. Be sure to convert the object to a string using JSON.stringify.  When you receive a response, convert the value to JSON:"
+    },
+    {
+      "id": "04b663a4-931f-4c98-acfd-aw7171c6da",
+      "name": "category 222",
+      "description": "1123"
+    },
+    {
+      "id": "04b663a4-931f-4c98-acfd-55071wc6da",
+      "name": "category 3",
+      "description": "123"
+    },
+    {
+      "id": "04b663a4-931f-4c98-acfd-p507171c6da",
+      "name": "category 1",
+      "description": "Inside the file, add a function that will take an item as an argument and will send the data using the POST method to the API. As before, you can use the Fetch API. This time, you’ll need more information. Add an object of options as the second argument. Include the method—POST—along with headers to set the Content-Type to application/json. Finally, send the new object in the body. Be sure to convert the object to a string using JSON.stringify.  When you receive a response, convert the value to JSON:"
+    },
+    {
+      "id": "04b663a4-931f-4c98-acfd-awp1c6da",
+      "name": "category 2",
+      "description": "123"
+    },
+    {
+      "id": "04b663a4-931f-4c98-ap71wc6da",
+      "name": "category 3",
+      "description": "123"
+    },
+    {
+      "id": "04b663a4-931f-4c98-apod-5507171c6da",
+      "name": "category 1",
+      "description": "Inside the file, add a function that will take an item as an argument and will send the data using the POST method to the API. As before, you can use the Fetch API. This time, you’ll need more information. Add an object of options as the second argument. Include the method—POST—along with headers to set the Content-Type to application/json. Finally, send the new object in the body. Be sure to convert the object to a string using JSON.stringify.  When you receive a response, convert the value to JSON:"
+    },
+    {
+      "id": "04b663a4-931f-4c98-acfd-[aw71]71c6da",
+      "name": "category 2",
+      "description": "1"
+    },
+    {
+      "id": "04b663a4-931f-4c98ii55071wc6da",
+      "name": "category 3",
+      "description": "123"
+    },
+    {
+      "id": "04b663a4-931f-4c98-acfiiii507171c6da",
+      "name": "category 1",
+      "description": "Inside the file, add a function that will take an item as an argument and will send the data using the POST method to the API. As before, you can use the Fetch API. This time, you’ll need more information. Add an object of options as the second argument. Include the method—POST—along with headers to set the Content-Type to application/json. Finally, send the new object in the body. Be sure to convert the object to a string using JSON.stringify.  When you receive a response, convert the value to JSON:"
+    },
+    {
+      "id": "04b663a4-931f-4c98i-aw7171c6da",
+      "name": "category 2",
+      "description": "1"
+    },
+    {
+      "id": "04b663a4-931f-4c98-id-55071wc6da",
+      "name": "category 3",
+      "description": "123"
+    }
+  ]
+}

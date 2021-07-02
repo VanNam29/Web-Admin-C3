@@ -1,0 +1,88 @@
+{
+  "customers": [
+    {
+      "id": "18a2e7a6-efe7-4c20-9963-cc1aba559dcc",
+      "name": "customer 1234",
+      "description": "11",
+      "priority": "1",
+      "status": 1
+    },
+    {
+      "id": "47fec7d5-6850-41ee-8418-7fffdd776ff1",
+      "name": "323333",
+      "description": "32",
+      "priority": "1",
+      "status": 1
+    },
+    {
+      "id": "cae95f80-483b-43db-b8ab-4ac59277be11",
+      "name": "34",
+      "description": "Ngày 30-6, Cơ quan Cảnh sát điều tra Bộ Công an thông báo đang điều tra vụ án “Vi phạm quy định về quản lý, sử dụng tài sản nhà nước gây thất thoát, lãng phí\" xảy ra tại Tổng Công ty Sản xuất - Xuất nhập khẩu Bình Dương TNHH MTV (Tổng Công ty 3/2).",
+      "priority": "1",
+      "status": 1
+    },
+    {
+      "id": "3a3a4125-0957-4d8f-9299-70483b30bde4",
+      "name": "test 1",
+      "description": "2",
+      "priority": "1",
+      "status": 0
+    },
+    {
+      "id": "f135517a-18d7-4617-a001-4d71af5c290e",
+      "name": "12",
+      "description": "2sss",
+      "priority": "1",
+      "status": 1
+    },
+    {
+      "id": "f1be7278-baa9-48ff-b28c-79445d2af6f9",
+      "name": "vmo",
+      "description": "21",
+      "priority": "1",
+      "status": 1
+    },
+    {
+      "id": "33252e6f-86fd-4758-b4dd-ce62ef654666",
+      "name": "123",
+      "description": "2",
+      "priority": "1",
+      "status": 1
+    },
+    {
+      "id": "9ccd277f-e5f1-4c7a-9712-3b61604721ba",
+      "name": "aaa",
+      "description": "a",
+      "priority": "1",
+      "status": 1
+    },
+    {
+      "id": "3117fb71-1b79-48ff-9519-cdb14a55f898",
+      "name": "adwwd",
+      "description": "a",
+      "priority": "1",
+      "status": 1
+    },
+    {
+      "id": "b3dabe6c-f12b-4390-8bb4-9cd3b50cf3da",
+      "name": "vmodev",
+      "description": "123",
+      "priority": "1",
+      "status": 0
+    },
+    {
+      "id": "61ebf060-f0fa-4c57-b83c-80ef12f3af86",
+      "name": "abcd",
+      "description": "122",
+      "priority": "1",
+      "status": 1
+    },
+    {
+      "id": "261fd1a9-423b-40c1-8d2e-c77d37ab834c",
+      "name": "demo 123",
+      "description": "demo",
+      "priority": "2",
+      "status": 1
+    }
+  ]
+}

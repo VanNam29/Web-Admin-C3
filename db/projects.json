@@ -1,0 +1,52 @@
+{
+  "projects": [
+    {
+      "id": "04b663a4-931f-4c98-acfd-aw7d71c6da",
+      "name": "project 2",
+      "description": "123",
+      "kind": "high"
+    },
+    {
+      "id": "04b663a4-931f-4c98-acfd-de1wc6da",
+      "name": "project 333",
+      "description": "Báo cáo Phó Thủ tướng, Phó Chủ tịch UBND tỉnh Bình Dương Nguyễn Lộc Hà cho biết, từ đầu đợt dịch thứ tư đến nay Bình Dương ghi nhận 326 ca mắc COVID-19. Trong đó có 24 ca phát hiện qua khám bệnh tại các cơ sở y tế. Những ngày gần đây tỉnh ghi nhận trung bình 20 ca đến 40 ca/ngày. Các ca nhiễm đa số xuất hiện ở các khu nhà trọ công nhân, doanh nghiệp, khu công nghiệp đan xen với nhau, với 32 DN ghi nhận 204 ca nhiễm.",
+      "kind": "medium"
+    },
+    {
+      "id": "04b663a4-931f-4c98-acfd-w717dec6da",
+      "name": "project 4",
+      "description": "123",
+      "kind": "high"
+    },
+    {
+      "id": "04b663a4-931f-s-acfd-5507de6da",
+      "name": "project 7",
+      "description": "123",
+      "kind": "small"
+    },
+    {
+      "id": "04b663a4-931f-4c98-acfd-dew7171c6da",
+      "name": "project 8",
+      "description": "123",
+      "kind": "medium"
+    },
+    {
+      "id": "04b663a4-931f-4c98-ssfd-55071wc6da",
+      "name": "project 9",
+      "description": "123",
+      "kind": "high"
+    },
+    {
+      "id": "64c0e8ca-c068-48e6-8d68-9f2e185987ab",
+      "name": "project 10",
+      "description": "1",
+      "kind": "small"
+    },
+    {
+      "id": "19f28121-b64c-4587-98a8-79e38a0e7094",
+      "name": "vmo dev",
+      "description": "123",
+      "kind": "small"
+    }
+  ]
+}

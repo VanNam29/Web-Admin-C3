@@ -1,0 +1,36 @@
+.navigation {
+}
+
+.header {
+}
+
+.main {
+  /* height: 100vh; */
+  min-height: calc(100vh);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  /* left: 0; */
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+/* 
+@media only screen and (min-width: 768px) {
+    .navigation {
+        width: 16.66%;
+    }
+    .header {
+        width: 83.34%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .header {
+        background-color: rgb(65, 230, 44);
+    }
+} */
