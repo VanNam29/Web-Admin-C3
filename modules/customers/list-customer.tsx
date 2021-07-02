@@ -74,7 +74,7 @@ export const ListCustomer: FC<PropsCustomer> = () => {
   };
 
   const getRequestParams = (searchTitle, page, pageSize, sortName, order) => {
-    let params = {};
+    const params = {};
 
     if (searchTitle) {
       params["name"] = searchTitle;
