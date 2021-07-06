@@ -22,6 +22,9 @@ export interface User {
   id?: string;
   username?: string;
   password?: string;
+  confirmPassword?: string;
+  email?: string;
+  gender?: string;
 }
 
 export interface Admin {}
