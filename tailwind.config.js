@@ -61,7 +61,7 @@ module.exports = {
       full: "100%",
     },
     width: {
-      "0": "0%",
+      0: "0%",
       "1/2": "50%",
       "1/3": "33.33%",
       "2/3": "66.66%",
@@ -113,19 +113,21 @@ module.exports = {
       screen: "100vw",
       full: "100%",
     },
-     fontSize: {
-      8: '8px',
-      10: '10px',
-      12: '12px',
-      14: '14px',
-      15: '15px',
-      16: '16px',
-      18: '18px',
-      20: '20px',
-      22: '22px',
-      24: '24px',
-      26: '26px',
-      28: '28px',
+    fontSize: {
+      8: "8px",
+      10: "10px",
+      12: "12px",
+      14: "14px",
+      15: "15px",
+      16: "16px",
+      18: "18px",
+      20: "20px",
+      22: "22px",
+      24: "24px",
+      26: "26px",
+      28: "28px",
+      32: "32px",
+      36: "36px",
     },
     padding: {
       1: "1px",
@@ -169,39 +171,39 @@ module.exports = {
       "1/3": "33.33%",
       "1/4": "25%",
       "1/2": "50%",
-      auto: "auto"
+      auto: "auto",
     },
     border: {
-      1: '1px'
+      1: "1px",
     },
     borderRadius: {
-      'none': '0',
-      1: '1px',
-      2: '2px',
-      4: '4px',
-      8: '8px',
-      12: '12px',
-      16: '16px',
-      24: '24px',
-      48: '48px'
+      none: "0",
+      1: "1px",
+      2: "2px",
+      4: "4px",
+      8: "8px",
+      12: "12px",
+      16: "16px",
+      24: "24px",
+      48: "48px",
     },
     fontFamily: {
-      'sans': ['ui-sans-serif', 'system-ui'],
-      'serif': ['ui-serif', 'Georgia'],
-      'mono': ['ui-monospace', 'SFMono-Regular'],
-      'display': ['Oswald'],
-      'body': ['Open Sans'],
+      sans: ["ui-sans-serif", "system-ui"],
+      serif: ["ui-serif", "Georgia"],
+      mono: ["ui-monospace", "SFMono-Regular"],
+      display: ["Oswald"],
+      body: ["Open Sans"],
     },
     screens: {
-      'mobile': '320px',
+      mobile: "320px",
 
-      'tablet': '768px',
+      tablet: "768px",
       // => @media (min-width: 640px) { ... }
 
-      'laptop': '1024px',
+      laptop: "1024px",
       // => @media (min-width: 1024px) { ... }
 
-      'desktop': '1280px',
+      desktop: "1280px",
       // => @media (min-width: 1280px) { ... }
     },
   },

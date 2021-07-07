@@ -3,6 +3,8 @@ import { FC } from "react";
 import { User } from "../../types/type";
 import styles from "./login.module.css";
 import { v4 as uuidv4 } from "uuid";
+import { useAuth } from "../../utils/contexts/auth-context";
+import { useRouter } from "next/router";
 
 interface PropsSignUp {
   signIn?: boolean;
@@ -20,6 +22,12 @@ const initialInput: User = {
 export const SignUp: FC<PropsSignUp> = (props) => {
   const { signIn, handleSignIn } = props;
   const [inputs, setInputs] = useState(initialInput);
+  const [errorConfirmPassword, setErrorConfirmPassWord] = useState("");
+  const [errorCreateAccount, setErrorCreateAccount] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const { signUp, currentUser } = useAuth();
+  const router = useRouter();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -29,7 +37,7 @@ export const SignUp: FC<PropsSignUp> = (props) => {
     });
   };
 
-  const handleSubmit = (event): void => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const newAccount = {
       id: uuidv4(),
@@ -38,7 +46,21 @@ export const SignUp: FC<PropsSignUp> = (props) => {
       password: inputs.password,
       gender: inputs.gender,
     };
-    console.log("acc", newAccount);
+    // console.log("acc", newAccount);
+
+    if (inputs.password !== inputs.confirmPassword) {
+      setErrorConfirmPassWord("Password do not match");
+    }
+    try {
+      setErrorConfirmPassWord("");
+      setLoading(true);
+      await signUp(inputs.email, inputs.password);
+      router.push("/login");
+      handleSignIn(false);
+    } catch {
+      setErrorCreateAccount("Failed to create an account");
+    }
+    setLoading(false);
   };
 
   const handleSignInSignUp = (): void => {
@@ -55,6 +77,7 @@ export const SignUp: FC<PropsSignUp> = (props) => {
         <h2 className="mobile:text-18 mobile:h2-2 tablet:text-24 pt-16 font-bold">
           SignUp
         </h2>
+        {/* <p>{JSON.stringify(currentUser)}</p> */}
       </div>
       <form className="w-full mobile:p-8 tablet:p-24">
         <div className={`${styles.txtName} p-8 mobile:h-62 tablet:h-78`}>
@@ -138,6 +161,7 @@ export const SignUp: FC<PropsSignUp> = (props) => {
 
         <div className="w-full p-8">
           <button
+            disabled={loading}
             className="w-full h-46 rounded-4 h-42 focus:ring-1 focus:outline-none bg-blue-700 mt-12 
                text-white bg-gradient-to-r from-blue-400 via-indigo-500 to--500"
             onClick={handleSubmit}

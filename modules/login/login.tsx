@@ -13,12 +13,14 @@ import {
   faGooglePlusSquare,
 } from "@fortawesome/free-brands-svg-icons";
 import { SignUp } from "./sign-up";
+import { AuthProvider } from "../../utils/contexts/auth-context";
+import { useAuth } from "../../utils/contexts/auth-context";
 
 interface PropsLogin {}
 
 const initialInput: User = {
   id: "",
-  username: "",
+  email: "",
   password: "",
 };
 
@@ -27,9 +29,11 @@ export const Login: FC<PropsLogin> = () => {
   const [loginFail, setLoginFail] = useState(3);
   const [inputs, setInputs] = useState(initialInput);
   const [signIn, setSignIn] = useState(true);
+  const [loading, setLoading] = useState(false);
   const isAuthenticated: number = useSelector(
     (state: any) => state.users.isAuthenticated
   );
+  const { login } = useAuth();
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -42,21 +46,27 @@ export const Login: FC<PropsLogin> = () => {
     });
   };
 
-  const handleSubmit = (event): void => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!inputs.username || !inputs.password) {
-      setInvalid(false);
-      setLoginFail(3);
-    } else {
-      const userCheck = {
-        username: inputs.username,
-        password: inputs.password,
-      };
 
-      const action = loginUser(userCheck);
-      dispatch(action);
-      setInvalid(true);
-    }
+    // if (!inputs.username || !inputs.password) {
+    //   setInvalid(false);
+    //   setLoginFail(3);
+    // } else {
+    //   const userCheck = {
+    //     username: inputs.username,
+    //     password: inputs.password,
+    //   };
+    //   const action = loginUser(userCheck);
+    //   dispatch(action);
+    //   setInvalid(true);
+    // }+
+
+    try {
+      setLoading(true);
+      await login(inputs.email, inputs.password);
+      router.push("/customers");
+    } catch (error) {}
   };
 
   const handleSignInSignUp = (): void => {
@@ -67,9 +77,9 @@ export const Login: FC<PropsLogin> = () => {
     setSignIn(true);
   };
 
-  if (isAuthenticated === 1) {
-    router.push("/customers");
-  }
+  // if (isAuthenticated === 1) {
+  //   router.push("/customers");
+  // }
 
   return (
     <div
@@ -101,9 +111,9 @@ export const Login: FC<PropsLogin> = () => {
             </label> */}
               <input
                 type="text"
-                name="username"
-                value={inputs.username}
-                placeholder="Username"
+                name="email"
+                value={inputs.email}
+                placeholder="Email"
                 onChange={handleInputChange}
                 className={`${styles.input} float-left w-full rounded-4 h-42 
                 focus:ring-1 focus:outline-none pl-12 mt-4 focus:ring-blue-600`}
@@ -179,7 +189,9 @@ export const Login: FC<PropsLogin> = () => {
           </form>
         </div>
       ) : (
-        <SignUp handleSignIn={handleSignIn} />
+        <AuthProvider>
+          <SignUp handleSignIn={handleSignIn} />
+        </AuthProvider>
       )}
     </div>
   );
