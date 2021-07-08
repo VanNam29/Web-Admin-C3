@@ -1,7 +1,8 @@
 import React, { useContext, useState, FC, useEffect } from "react";
 import { User } from "../../types/type";
 import { ReactElement } from "react";
-import { auth } from "../firebase";
+import firebase from "../firebase";
+import nookies from "nookies";
 
 const AuthContext = React.createContext(null);
 
@@ -19,27 +20,53 @@ export const AuthProvider: FC<PropsAuthContext> = (props) => {
   const { children } = props;
   const [currentUser, setCurrentUser] = useState({});
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState("");
 
   const signUp = (email: string, password: string) => {
-    return auth.createUserWithEmailAndPassword(email, password);
+    return firebase.auth().createUserWithEmailAndPassword(email, password);
   };
 
   const login = (email: string, password: string) => {
-    return auth.signInWithEmailAndPassword(email, password);
+    return firebase.auth().signInWithEmailAndPassword(email, password);
   };
 
+  const logout = () => {
+    return firebase.auth().signOut();
+  };
+
+  //token
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user: User) => {
+    return firebase.auth().onIdTokenChanged(async (user) => {
+      if (!user) {
+        setUser(null);
+        nookies.set(undefined, "token", "", { path: "/login" });
+      } else {
+        const token: string = await user.getIdToken();
+        // console.log("token", token);
+        // console.log("user", user);
+        setToken(token);
+
+        setUser(user);
+        nookies.set(undefined, "token", token, { path: "/" });
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user: User) => {
       setCurrentUser(user);
       setLoading(false);
     });
     return unsubscribe;
   }, []);
 
-  const value: any = {
+  const value: Object = {
     currentUser,
     signUp,
     login,
+    logout,
+    token,
   };
 
   return (

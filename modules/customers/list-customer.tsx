@@ -19,6 +19,8 @@ import { ModalCustomer } from "../../components/modal-customer/modal-customer";
 import { ModalCustom } from "../../components/modal-custom/modal-custom";
 import Pagination from "@material-ui/lab/Pagination";
 import { fetchCustomerSuccess } from "../../modules/customers/redux/customer.action";
+import { useAuth } from "../../utils/contexts/auth-context";
+import { useRouter } from "next/router";
 
 interface PropsCustomer {
   customers?: Customer[];
@@ -28,37 +30,34 @@ export const ListCustomer: FC<PropsCustomer> = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [customers, setCustomers] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
-
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const [totalItem, setTotalItem] = useState(15);
-
   const [sortName, setSortName] = useState("");
   const [order, setOrder] = useState("");
+  const { token } = useAuth();
 
   const pageSizes = [2, 5, 10];
 
   const dispatch = useDispatch();
+  const router = useRouter();
   const listCustomerAll = useSelector((state: any) => state.customers);
-  console.log(listCustomerAll);
 
   useEffect(() => {
     dispatch(fetchCustomerAll());
+    console.log("token -listCustomer ", token);
   }, []);
 
   const handleAdd = (): void => {
-    console.log("add");
     setIsOpen(true);
   };
 
   const searchDebounce = (input: string): void => {
-    console.log(input);
     setSearchTitle(input);
   };
 
   const findByName = (name: string): void => {
-    console.log(name);
     setSearchTitle(name);
     const action = findCustomersByName(name);
     dispatch(action);
@@ -139,10 +138,14 @@ export const ListCustomer: FC<PropsCustomer> = () => {
   };
 
   const onChangeFilter = (value): void => {
-    console.log(value);
+    // console.log(value);
     setSortName(value.slice(0, 4));
     setOrder(value.slice(5, value.length));
   };
+
+  // if (!token) {
+  //   router.push("/login");
+  // }
 
   return (
     <MainLayout title="customers list">

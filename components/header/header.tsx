@@ -4,19 +4,20 @@ import styles from "./header.module.css";
 import { faBell, faComments } from "@fortawesome/free-regular-svg-icons";
 import { FC } from "react";
 import { useState } from "react";
+import { Dropdown } from "semantic-ui-react";
 
 interface PropsHeader {
   handleShowNavigation: (isShow: boolean) => void;
   isShowNav: boolean;
+  handleOptionUser: () => void;
 }
 
 export const Header: FC<PropsHeader> = (props) => {
-  const { handleShowNavigation, isShowNav } = props;
-  const [infoDropDown, setInfoDropdown] = useState(false);
+  const { handleShowNavigation, handleOptionUser, isShowNav } = props;
   const [showNavigation, setShowNavigation] = useState(true);
 
   const handleClickAvt = () => {
-    setInfoDropdown(!infoDropDown);
+    handleOptionUser();
   };
 
   const honClickHandleShowNavigation = (): void => {
@@ -26,7 +27,6 @@ export const Header: FC<PropsHeader> = (props) => {
 
   return (
     <div className="w-full h-full">
-      {/* <div className="mobile:mt-12"> */}
       <div
         className={`
           ${isShowNav ? "mobile:float-left mobile:w-1/5" : "mobile:float-left"}
@@ -58,7 +58,6 @@ export const Header: FC<PropsHeader> = (props) => {
           Contact
         </a>
       </div>
-      {/* </div> */}
 
       <div className="float-right mobile:mt-12 mobile:w-1/2 tablet:w-2/5">
         <div

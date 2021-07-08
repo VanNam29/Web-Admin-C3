@@ -1,20 +1,19 @@
-import { useEffect } from "react";
 import { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { User } from "../../types/type";
-import styles from "./login.module.css";
-// import { LoginUser } from "./redux/login.action";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { loginUser } from "./redux/login.service";
 import { useRouter } from "next/router";
 import { Checkbox } from "@material-ui/core";
+import { SignUp } from "./sign-up";
+import { AuthProvider } from "../../utils/contexts/auth-context";
+import { useAuth } from "../../utils/contexts/auth-context";
+import firebase from "../../utils/firebase";
+import styles from "./login.module.css";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import {
   faFacebookSquare,
   faGooglePlusSquare,
 } from "@fortawesome/free-brands-svg-icons";
-import { SignUp } from "./sign-up";
-import { AuthProvider } from "../../utils/contexts/auth-context";
-import { useAuth } from "../../utils/contexts/auth-context";
 
 interface PropsLogin {}
 
@@ -24,15 +23,21 @@ const initialInput: User = {
   password: "",
 };
 
+const uiConfig = {
+  signInSuccessUrl: "/customers",
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+  ],
+};
+
 export const Login: FC<PropsLogin> = () => {
   const [invalid, setInvalid] = useState(true);
   const [loginFail, setLoginFail] = useState(3);
   const [inputs, setInputs] = useState(initialInput);
   const [signIn, setSignIn] = useState(true);
   const [loading, setLoading] = useState(false);
-  const isAuthenticated: number = useSelector(
-    (state: any) => state.users.isAuthenticated
-  );
+  const [isAuth, setIsAuth] = useState(false);
   const { login } = useAuth();
 
   const dispatch = useDispatch();
@@ -49,24 +54,14 @@ export const Login: FC<PropsLogin> = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // if (!inputs.username || !inputs.password) {
-    //   setInvalid(false);
-    //   setLoginFail(3);
-    // } else {
-    //   const userCheck = {
-    //     username: inputs.username,
-    //     password: inputs.password,
-    //   };
-    //   const action = loginUser(userCheck);
-    //   dispatch(action);
-    //   setInvalid(true);
-    // }+
-
     try {
       setLoading(true);
       await login(inputs.email, inputs.password);
+      setIsAuth(true);
       router.push("/customers");
-    } catch (error) {}
+    } catch (error) {
+      console.log("loi");
+    }
   };
 
   const handleSignInSignUp = (): void => {
@@ -77,18 +72,14 @@ export const Login: FC<PropsLogin> = () => {
     setSignIn(true);
   };
 
-  // if (isAuthenticated === 1) {
-  //   router.push("/customers");
-  // }
-
   return (
     <div
-      className="bg-gray-200 w-screen h-screen flex items-center
-      bg-gradient-to-r from-blue-200 via-indigo-400 to-pink-400"
+      className="bg-login w-screen h-screen flex items-center
+      bg-gradient-to-r bg-cover bg-center"
     >
       {signIn ? (
         <div
-          className="float-left m-auto bg-white rounded-12 shadow-md 
+          className="float-left m-auto bg-white rounded-12 shadow-2xl
                   mobile:w-5/6 tablet:w-1/2 laptop:w-1/3
                   desktop:w-1/4"
         >
@@ -96,7 +87,6 @@ export const Login: FC<PropsLogin> = () => {
             <h2 className="mobile:text-18 mobile:h2-2 tablet:text-24  pt-16 font-bold">
               Login
             </h2>
-            {/* {loginFail === 2 ? <p>Login sai</p> : null} */}
             {!invalid ? (
               <p className="text-red-400 text-12">
                 fields cannot be left blank
@@ -105,10 +95,6 @@ export const Login: FC<PropsLogin> = () => {
           </div>
           <form className="w-full mobile:p-8 tablet:p-24">
             <div className={`${styles.txtName} p-8 mobile:h-62 tablet:h-78`}>
-              {/* <label className="float-left mobile:text-14 tablet:text-16 w-full text-black font-medium">
-              Username
-              <span className="text-red-500 text-16">*</span>
-            </label> */}
               <input
                 type="text"
                 name="email"
@@ -157,21 +143,12 @@ export const Login: FC<PropsLogin> = () => {
               <div className="text-center pt-24">
                 <p className="text-gray-400">Or login with</p>
               </div>
-              <div className="tablet:flex pt-12">
-                <button className="tablet:flex-1 text-blue-500 border-solid border-2 border-blue-500 rounded-4 h-42 mr-4">
-                  <FontAwesomeIcon
-                    icon={faFacebookSquare}
-                    className="text-24"
-                  />
-                  <span className="p-4">Facebook</span>
-                </button>
-                <button className="tablet:flex-1 text-red-500 border-solid border-2 border-red-500 rounded-4 h-42 ml-4">
-                  <FontAwesomeIcon
-                    icon={faGooglePlusSquare}
-                    className="text-24"
-                  />
-                  <span className="p-4">Google</span>
-                </button>
+              <div className="h-96 w-full">
+                <StyledFirebaseAuth
+                  uiConfig={uiConfig}
+                  className="h-96"
+                  firebaseAuth={firebase.auth()}
+                />
               </div>
             </div>
             <div className="w-full text-center mt-4">

@@ -89,14 +89,14 @@ export const ProjectItem: FC<PropsProjectItem> = (props) => {
         <td className="border border-gray-200">
           <FontAwesomeIcon
             icon={faEdit}
-            className={`${styles.iconEdit} mobile:h-14 mobile:pl-8 mobile:mt-2 tablet:h-20 text-blue-300 hover:text-blue-400 float-left tablet:pl-4 laptop:h-24 laptop:pl-8`}
+            className={`${styles.iconEdit} mobile:text-14 mobile:pl-8 mobile:mt-2 tablet:text-24 text-blue-300 hover:text-blue-400 float-left tablet:pl-4 laptop:text-32 laptop:pl-8`}
             onClick={handleEdit}
             role="button"
             title="Edit"
           />
           <FontAwesomeIcon
             icon={faTrashAlt}
-            className={`${styles.iconDelete} mobile:h-14 mobile:pl-8 mobile:mt-2 tablet:h-20 text-red-300 hover:text-red-400 float-left tablet:pl-4 laptop:h-24 laptop:pl-8`}
+            className={`${styles.iconDelete} mobile:text-14 mobile:pl-8 mobile:mt-2 tablet:text-24 text-red-300 hover:text-red-400 float-left tablet:pl-4 laptop:text-32 laptop:pl-8`}
             role="button"
             title="Delete"
             onClick={() => deleteCustomer(project.id)}

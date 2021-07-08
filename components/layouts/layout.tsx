@@ -1,13 +1,20 @@
 import Head from "next/head";
 import React, { FC, ReactElement } from "react";
-import { ModalCustom } from "../modal-custom/modal-custom";
 import { Header } from "../header/header";
 import { NavigationMenu } from "../navigation-menu/navigation-menu";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { useRouter } from "next/router";
 import styles from "./layout.module.css";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCog,
+  faSignOutAlt,
+  faUserTie,
+} from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../../utils/contexts/auth-context";
+import nookies from "nookies";
 
 interface Props {
   children: ReactElement;
@@ -16,6 +23,9 @@ interface Props {
 
 export const MainLayout: FC<Props> = ({ children, title }) => {
   const [isShowNav, setIsShowNav] = useState(true);
+  const [isOptionUser, setIsOptionUser] = useState(false);
+  const router = useRouter();
+  const { logout } = useAuth();
 
   const handleShowNavigation = (isShow): void => {
     console.log(isShow);
@@ -24,6 +34,24 @@ export const MainLayout: FC<Props> = ({ children, title }) => {
 
   const handleHiddenNav = () => {
     setIsShowNav(false);
+  };
+
+  const handleOptionUser = () => {
+    setIsOptionUser(!isOptionUser);
+  };
+
+  const hiddenOptionUser = () => {
+    if (isOptionUser) {
+      setIsOptionUser(false);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+
+      router.push("/login");
+    } catch (error) {}
   };
 
   return (
@@ -35,7 +63,7 @@ export const MainLayout: FC<Props> = ({ children, title }) => {
       </Head>
 
       <main
-        className={`${styles.main} w-screen bg-gray-200 transition duration-200 ease-in-out`}
+        className={`${styles.main} w-screen bg-gray-200 transition duration-200 ease-in-out relative`}
       >
         <div
           className={`${styles.navigation} 
@@ -56,6 +84,7 @@ export const MainLayout: FC<Props> = ({ children, title }) => {
           <Header
             handleShowNavigation={handleShowNavigation}
             isShowNav={isShowNav}
+            handleOptionUser={handleOptionUser}
           />
         </div>
 
@@ -76,9 +105,39 @@ export const MainLayout: FC<Props> = ({ children, title }) => {
           } ${styles.overlay} ${isShowNav ? "tablet:w-2/3" : "mobile:hidden"} 
             ${isShowNav ? "laptop:hidden" : "laptop:hidden"} w-1/3`}
         ></div>
-        {/* <div className="h-42 w-6/7 float-right bg-red-200 bottom-0">
-          <p>©2012-2021 All rights reserved.</p>
-        </div> */}
+
+        {isOptionUser ? (
+          <div
+            className={`w-180 top-1 right-1 mt-48 bg-white absolute rounded-4 border-solid border-2 border-gray-300`}
+            // onCl={hiddenOptionUser}
+          >
+            <div className="w-full h-36 hover:bg-gray-100 p-4" role="button">
+              <FontAwesomeIcon
+                icon={faCog}
+                className="text-gray-400 ml-20 text-16"
+              />
+              <span className="text-gray-500 text-14 ml-8">Setting</span>
+            </div>
+            <div className="w-full h-36 hover:bg-gray-100 p-4" role="button">
+              <FontAwesomeIcon
+                icon={faUserTie}
+                className="text-gray-400 ml-20 text-16"
+              />
+              <span className="text-gray-500 text-14 ml-8">Profile</span>
+            </div>
+            <div
+              className="w-full h-36 hover:bg-gray-100 p-4"
+              role="button"
+              onClick={handleLogout}
+            >
+              <FontAwesomeIcon
+                icon={faSignOutAlt}
+                className="text-gray-400 ml-20 text-16"
+              />
+              <span className="text-gray-500 text-14 ml-8">Logout</span>
+            </div>
+          </div>
+        ) : null}
       </main>
 
       <ToastContainer></ToastContainer>

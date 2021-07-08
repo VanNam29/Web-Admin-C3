@@ -44,7 +44,7 @@ export const SearchInput: FC<SearchInputProps> = (props) => {
         ></input>
         <FontAwesomeIcon
           icon={faSearch}
-          className={`${styles.iconSearch} h-16 text-gray-600 absolute`}
+          className={`${styles.iconSearch} h-16 text-gray-600 absolute right-1 top-8`}
         />
       </form>
     </div>

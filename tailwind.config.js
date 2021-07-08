@@ -2,7 +2,12 @@ module.exports = {
   purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: (theme) => ({
+        login:
+          "url('https://digitalpress.fra1.cdn.digitaloceanspaces.com/hmyl99k/2021/03/3402026.png')",
+      }),
+    },
     height: {
       "1/2": "50%",
       "1/4": "25%",
@@ -57,6 +62,8 @@ module.exports = {
       72: "72px",
       78: "78px",
       96: "96px",
+      280: "280px",
+      320: "320px",
       screen: "100vh",
       full: "100%",
     },
@@ -110,6 +117,8 @@ module.exports = {
       108: "108px",
       120: "120px",
       180: "180px",
+      220: "220px",
+      420: "420px",
       screen: "100vw",
       full: "100%",
     },
@@ -175,6 +184,7 @@ module.exports = {
     },
     border: {
       1: "1px",
+      2: "2px",
     },
     borderRadius: {
       none: "0",
