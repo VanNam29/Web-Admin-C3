@@ -25,6 +25,7 @@ export interface User {
   confirmPassword?: string;
   email?: string;
   gender?: string;
+  emailForgotPassword?: string;
 }
 
 export interface Admin {}

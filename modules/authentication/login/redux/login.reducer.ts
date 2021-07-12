@@ -1,10 +1,10 @@
 import {
   FETCH_USER_ERROR,
   FETCH_USER_SUCCESS,
-} from "../../../constants/constants";
+} from "../../../../constants/constants";
 import { toast } from "react-toastify";
 
-const initialState:Object = {
+const initialState: Object = {
   isAuthenticated: 3,
 };
 

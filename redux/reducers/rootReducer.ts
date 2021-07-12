@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { categoryReducer } from "../../modules/categories/redux/category.reducer";
 import { customerReducer } from "../../modules/customers/redux/customer.reducer";
-import { userReducer } from "../../modules/login/redux/login.reducer";
+import { userReducer } from "../../modules/authentication/login/redux/login.reducer";
 import { projectReducer } from "../../modules/projects/redux/project.reducer";
 
 const rootReducer = combineReducers({

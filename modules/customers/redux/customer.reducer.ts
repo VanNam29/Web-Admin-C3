@@ -26,17 +26,17 @@ export const customerReducer = (state = initialState, action) => {
     }
 
     case ADD_CUSTOMER: {
-      toast.success("add customer success!");
+      toast.success("Add customer successfully!");
       return [action.payload, ...state];
     }
 
     case REMOVE_CUSTOMER: {
-      toast.error("delete customer success!");
+      toast.error("Delete customer successfully!");
       return state.filter((customer) => customer.id !== action.payload);
     }
 
     case EDIT_CUSTOMER: {
-      toast.warn("edit customer success!");
+      toast.warn("Edit customer successfully!");
       const newCustomer = action.payload;
       return state.map((customer) => {
         if (customer.id === newCustomer.id) {

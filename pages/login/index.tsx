@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Login } from "../../modules/login/login";
+import { Login } from "../../modules/authentication/login/login";
 
 interface PropsLogin {}
 

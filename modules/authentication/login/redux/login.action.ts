@@ -2,8 +2,8 @@ import {
   FETCH_USER_ERROR,
   FETCH_USER_SUCCESS,
   LOGIN_USER,
-} from "../../../constants/constants";
-import { User } from "../../../types/type";
+} from "../../../../constants/constants";
+import { User } from "../../../../types/type";
 
 export const fetchUserSuccess = (user: User) => {
   return {

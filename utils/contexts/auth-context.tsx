@@ -31,6 +31,10 @@ export const AuthProvider: FC<PropsAuthContext> = (props) => {
     return firebase.auth().signInWithEmailAndPassword(email, password);
   };
 
+  const resetPassword = (email: string) => {
+    return firebase.auth().sendPasswordResetEmail(email);
+  };
+
   const logout = () => {
     return firebase.auth().signOut();
   };
@@ -65,6 +69,7 @@ export const AuthProvider: FC<PropsAuthContext> = (props) => {
     currentUser,
     signUp,
     login,
+    resetPassword,
     logout,
     token,
   };

@@ -1,6 +1,6 @@
 import { fetchUserSuccess, fetchUserError } from "./login.action";
 import http from "./http-login";
-import { User } from "../../../types/type";
+import { User } from "../../../../types/type";
 
 export const loginUser = (checkUser: User) => async (dispatch) => {
   try {

@@ -45,7 +45,7 @@ export const ModalDelete: FC<ModalDeleteProps> = (props) => {
       >
         {customer ? (
           <p className="text-center p-4 mobile:text-18 tablet:text-20 laptop:text-24">
-            Remove customer item:{" "}
+            Do you want remove customer item?{" "}
             <strong className="mobile:text-20 tablet:text-22 laptop:text-26">
               {customer.name}
             </strong>
@@ -53,7 +53,7 @@ export const ModalDelete: FC<ModalDeleteProps> = (props) => {
         ) : null}
         {category ? (
           <p className="text-center p-4 mobile:text-18 tablet:text-20 laptop:text-24">
-            Remove category item:{" "}
+            Do you want remove category item:{" "}
             <strong className="mobile:text-20 tablet:text-22 laptop:text-26">
               {category.name}
             </strong>
@@ -61,7 +61,7 @@ export const ModalDelete: FC<ModalDeleteProps> = (props) => {
         ) : null}
         {project ? (
           <p className="text-center p-4 mobile:text-18 tablet:text-20 laptop:text-24">
-            Remove project item:{" "}
+            Do you want remove project item:{" "}
             <strong className="mobile:text-20 tablet:text-22 laptop:text-26">
               {project.name}
             </strong>
