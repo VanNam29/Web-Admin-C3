@@ -9,6 +9,7 @@ import styles from "./login.module.css";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { upperFirst, lowerCase, trim } from "lodash";
 import {
   faFacebookSquare,
   faGithub,
@@ -16,22 +17,22 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 interface PropsLogin {}
 
-const initialInput: User = {
-  id: "",
-  email: "",
-  password: "",
-  emailForgotPassword: "",
-};
+interface FormValues {
+  email: string;
+  password: string;
+}
 
 export const Login: FC<PropsLogin> = () => {
-  const [invalid, setInvalid] = useState<boolean>(true);
-  const [inputs, setInputs] = useState(initialInput);
-  const [signIn, setSignIn] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
-  const [isAuth, setIsAuth] = useState<boolean>(false);
-
-  const [errorEmail, setErrorEmail] = useState<string>("");
-  const [errorPassword, setErrorPassword] = useState<string>("");
+  const [isAuth, setIsAuth] = useState<string>("");
+  const [values, setValues] = useState<FormValues>({
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState<FormValues>({
+    email: "",
+    password: "",
+  });
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [remember, setRemember] = useState<boolean>(false);
   const { login } = useAuth();
@@ -43,76 +44,38 @@ export const Login: FC<PropsLogin> = () => {
     signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-      // firebase.auth.GithubAuthProvider.PROVIDER_ID,
     ],
     signInSuccessUrl: "/customers",
   };
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setInputs({
-      ...inputs,
-      [name]: value,
-    });
-  };
-
-  useEffect(() => {
-    resetValidate();
-  }, [inputs]);
-
-  const resetValidate = (): void => {
-    if (
-      inputs.email &&
-      inputs.email.slice(inputs.email.length - 4, inputs.email.length) ===
-        ".com"
-    ) {
-      setErrorEmail("");
+  const handleInputChange = (key: keyof FormValues, value: string) => {
+    if (!trim(value)) {
+      setErrors((prev) => ({
+        ...prev,
+        [key]: `${upperFirst(lowerCase(key))} is required`,
+      }));
+    } else {
+      setErrors((prev) => ({
+        ...prev,
+        [key]: "",
+      }));
+      setIsAuth("");
     }
-    if (inputs.password) {
-      setErrorPassword("");
-    }
+    setValues((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    if (validate()) {
-      try {
-        setLoading(true);
-        await login(inputs.email, inputs.password);
-        setIsAuth(true);
-        router.push("/customers");
-      } catch (error) {
-        console.log("loi");
-      }
+    try {
+      setLoading(true);
+      await login(values.email, values.password);
+      setIsAuth("");
+      router.push("/customers");
+    } catch (error) {
+      setIsAuth("The username or password you enter is invalid");
     }
-  };
-
-  const validate = (): boolean => {
-    //email
-    const regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (
-      !inputs.email ||
-      regEmail.test(inputs.email) === false ||
-      inputs.email.slice(inputs.email.length - 5, inputs.email.length - 1) !==
-        ".com"
-    ) {
-      setErrorEmail(
-        "Please provide a properly formatted email address yourname@example.com"
-      );
-    }
-    //password
-    const regPassword =
-      /^([!@#$%^&*](?=[^aeiou]{7,13}$)(?=[[:alnum:]]{7,13}$)(?=.*[A-Z]{1,}.*$).+)$/;
-    if (!inputs.password || regPassword.test(inputs.password) === false) {
-      setErrorPassword(
-        "Password must be at least 8 characters, and include both lower and upper case characters, and include at least one number or symbol"
-      );
-    }
-    if (errorPassword || errorEmail) {
-      return false;
-    }
-    return true;
   };
 
   const handleSignInSignUp = (): void => {
@@ -120,7 +83,7 @@ export const Login: FC<PropsLogin> = () => {
   };
 
   const handleShowPassword = (): void => {
-    if (inputs.password) {
+    if (values.password) {
       setShowPassword(!showPassword);
     }
   };
@@ -128,13 +91,13 @@ export const Login: FC<PropsLogin> = () => {
   //Remember
   useEffect(() => {
     const tempEmail: any = Cookie.get("email") || "";
-    setInputs((prev) => ({ ...prev, email: tempEmail }));
+    setValues((prev) => ({ ...prev, email: tempEmail }));
     setRemember(!!tempEmail);
   }, []);
 
   const handleChangeCheckbox = (e) => {
     if (e.target.checked) {
-      Cookie.set("email", inputs.email, { expires: 999999999 });
+      Cookie.set("email", values.email, { expires: 999999999 });
     } else {
       Cookie.remove("email");
     }
@@ -158,8 +121,11 @@ export const Login: FC<PropsLogin> = () => {
         >
           <div className="text-center">
             <h2 className="mobile:text-18 mobile:h2-2 tablet:text-24  pt-16 font-bold">
-              Login
+              Log in
             </h2>
+            {isAuth ? (
+              <p className="text-red-400 pl-24 pr-24">{isAuth}</p>
+            ) : null}
           </div>
           <form className="w-full mobile:p-8 tablet:p-24">
             <div className={`p-8 float-left w-full`}>
@@ -169,15 +135,12 @@ export const Login: FC<PropsLogin> = () => {
               <input
                 type="text"
                 name="email"
-                value={inputs.email}
-                placeholder="Email"
-                onChange={handleInputChange}
-                className={`${styles.input} w-full rounded-4 h-42 
-                focus:ring-1 focus:outline-none pl-12 mt-4 focus:ring-blue-600 ring-1 ring-blue-400`}
+                value={values.email}
+                placeholder=""
+                onChange={(e) => handleInputChange("email", e.target.value)}
+                className={`float-left w-full rounded-4 h-42 focus:outline-none pl-12 mt-4 ring-blue-400 ring-1 focus:ring-blue-600 focus:ring-1"`}
               ></input>
-              {errorEmail ? (
-                <p className="text-14 leading-6 text-red-500">{errorEmail}</p>
-              ) : null}
+              <div className="text-red-500 h-2 text-16">{errors.email}</div>
             </div>
             <div
               className={`${styles.txtName} p-8 mt-12 w-full relative float-left`}
@@ -188,11 +151,10 @@ export const Login: FC<PropsLogin> = () => {
               <input
                 type={showPassword ? "text" : "password"}
                 name={showPassword ? "text" : "password"}
-                placeholder="Password"
-                value={inputs.password}
-                onChange={handleInputChange}
-                className={`${styles.input} w-full rounded-4 h-42 
-                focus:ring-1 focus:outline-none pl-12 mt-4 focus:ring-blue-600 ring-1 ring-blue-400`}
+                placeholder=""
+                value={values.password}
+                onChange={(e) => handleInputChange("password", e.target.value)}
+                className={`float-left w-full rounded-4 h-42 focus:outline-none pl-12 mt-4 ring-blue-400 ring-1 focus:ring-blue-600 focus:ring-1"`}
               ></input>
               <div
                 className="absolute top-12 right-4"
@@ -211,11 +173,7 @@ export const Login: FC<PropsLogin> = () => {
                   />
                 )}
               </div>
-              {errorPassword ? (
-                <p className="text-14 leading-6 text-red-500">
-                  {errorPassword}
-                </p>
-              ) : null}
+              <div className="text-red-500 h-3 text-16">{errors.password}</div>
             </div>
             <div className="tablet:flex mt-24 w-full">
               <div className="tablet:flex-1 -ml-4">
@@ -239,10 +197,10 @@ export const Login: FC<PropsLogin> = () => {
             <div className="w-full p-8">
               <button
                 className="w-full h-46 rounded-4 h-42 hover:bg-blue-800 focus:ring-1 focus:outline-none bg-blue-600 mt-12 
-               text-white bg-blue-700"
+                text-white bg-blue-700"
                 onClick={handleSubmit}
               >
-                LOGIN
+                Login
               </button>
               <div className="text-center pt-24">
                 <p className="text-gray-400">Or login with</p>

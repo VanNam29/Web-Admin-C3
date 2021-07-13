@@ -19,12 +19,13 @@ export const useAuth = () => {
 
 export const AuthProvider: FC<PropsAuthContext> = (props) => {
   const { children } = props;
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState("");
 
   const signUp = (email: string, password: string) => {
+    // debugger;
     return firebase.auth().createUserWithEmailAndPassword(email, password);
   };
 
@@ -63,8 +64,6 @@ export const AuthProvider: FC<PropsAuthContext> = (props) => {
         nookies.set(undefined, "token", "", { path: "/login" });
       } else {
         const token: string = await user.getIdToken();
-        // console.log("token", token);
-        // console.log("user", user);
         setToken(token);
 
         setUser(user);
@@ -86,12 +85,8 @@ export const AuthProvider: FC<PropsAuthContext> = (props) => {
     signUp,
     login,
     resetPassword,
-    // socialMediaAuth,
     logout,
     token,
-    // facebookProvider,
-    // googleProvider,
-    // githubProvider,
   };
 
   return (
