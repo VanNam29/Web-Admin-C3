@@ -194,7 +194,7 @@ export const Register: FC<PropsRegister> = (props) => {
               value={inputs.username}
               placeholder="Username"
               onChange={handleInputChange}
-              className={`${styles.input} focus:ring-blue-600 focus:ring-1 float-left w-full rounded-4 h-42  focus:outline-none pl-12 mt-4 `}
+              className={`ring-blue-400 ring-1 focus:ring-blue-600 focus:ring-1 float-left w-full rounded-4 h-42  focus:outline-none pl-12 mt-4 `}
             ></input>
             {errorUsername ? (
               <p className="text-14 text-red-500 leading-6">{errorUsername}</p>
@@ -211,7 +211,7 @@ export const Register: FC<PropsRegister> = (props) => {
               value={inputs.email}
               placeholder="Email"
               onChange={handleInputChange}
-              className={`${styles.input} float-left w-full rounded-4 h-42 
+              className={`ring-blue-400 ring-1 float-left w-full rounded-4 h-42 
                 focus:ring-1 focus:outline-none pl-12 mt-4 focus:ring-blue-600`}
             ></input>
             {errorEmail ? (
@@ -229,7 +229,7 @@ export const Register: FC<PropsRegister> = (props) => {
               placeholder="Password"
               value={inputs.password}
               onChange={handleInputChange}
-              className={`${styles.input} float-left w-full rounded-4 h-42 
+              className={`ring-blue-400 ring-1 float-left w-full rounded-4 h-42 
                 focus:ring-1 focus:outline-none pl-12 mt-4 focus:ring-blue-600`}
             ></input>
             <div
@@ -264,7 +264,7 @@ export const Register: FC<PropsRegister> = (props) => {
               placeholder="Confirm password"
               value={inputs.confirmPassword}
               onChange={handleInputChange}
-              className={`${styles.input} float-left w-full rounded-4 h-42 
+              className={`ring-blue-400 ring-1 float-left w-full rounded-4 h-42 
                 focus:ring-1 focus:outline-none pl-12 mt-4 focus:ring-blue-600`}
             ></input>
             <div

@@ -3,6 +3,7 @@ import { User } from "../../types/type";
 import { ReactElement } from "react";
 import firebase from "../firebase";
 import nookies from "nookies";
+import router from "next/router";
 
 const AuthContext = React.createContext(null);
 
@@ -33,6 +34,21 @@ export const AuthProvider: FC<PropsAuthContext> = (props) => {
 
   const resetPassword = (email: string) => {
     return firebase.auth().sendPasswordResetEmail(email);
+  };
+
+  const socialMediaAuth = (provider) => {
+    return firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((res) => {
+        if (res.user) {
+          setUser(res.user);
+          router.push("/customers");
+        }
+      })
+      .catch((error) => {
+        return error;
+      });
   };
 
   const logout = () => {
@@ -70,8 +86,12 @@ export const AuthProvider: FC<PropsAuthContext> = (props) => {
     signUp,
     login,
     resetPassword,
+    // socialMediaAuth,
     logout,
     token,
+    // facebookProvider,
+    // googleProvider,
+    // githubProvider,
   };
 
   return (
