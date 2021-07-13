@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from "react";
-import { User } from "../../../types/type";
 import { useRouter } from "next/router";
 import { Checkbox } from "@material-ui/core";
 import { useAuth } from "../../../utils/contexts/auth-context";
@@ -10,11 +9,7 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { upperFirst, lowerCase, trim } from "lodash";
-import {
-  faFacebookSquare,
-  faGithub,
-  faGoogle,
-} from "@fortawesome/free-brands-svg-icons";
+import Spinner from "react-spinner-material";
 interface PropsLogin {}
 
 interface FormValues {
@@ -38,6 +33,13 @@ export const Login: FC<PropsLogin> = () => {
   const { login } = useAuth();
 
   const router = useRouter();
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
 
   const uiConfig = {
     signInFlow: "popup",
@@ -69,7 +71,6 @@ export const Login: FC<PropsLogin> = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      setLoading(true);
       await login(values.email, values.password);
       setIsAuth("");
       router.push("/customers");
@@ -97,8 +98,10 @@ export const Login: FC<PropsLogin> = () => {
 
   const handleChangeCheckbox = (e) => {
     if (e.target.checked) {
+      debugger;
       Cookie.set("email", values.email, { expires: 999999999 });
     } else {
+      debugger;
       Cookie.remove("email");
     }
     setRemember(e.target.checked);
@@ -107,6 +110,23 @@ export const Login: FC<PropsLogin> = () => {
   const handleForgotPassword = () => {
     router.push("/forgot-password");
   };
+
+  if (loading)
+    return (
+      <div className="h-screen w-screen">
+        <div className="w-56 h-48 m-auto mt-48">
+          <Spinner
+            size={240}
+            spinnerColor={"#F37A24"}
+            spinnerWidth={2}
+            visible={true}
+            radius={40}
+            color={"#F37A24"}
+            stroke={5}
+          />
+        </div>
+      </div>
+    );
 
   return (
     <>

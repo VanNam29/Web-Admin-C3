@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FC } from "react";
 import { User } from "../../../types/type";
 import { useAuth } from "../../../utils/contexts/auth-context";
@@ -8,6 +8,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { upperFirst, lowerCase, trim } from "lodash";
 import { ModalCustom } from "../../../components/modal-custom/modal-custom";
 import { ModalNotification } from "../../../components/modal-notification/modal-notification";
+import Spinner from "react-spinner-material";
 
 interface PropsRegister {}
 
@@ -37,10 +38,10 @@ function validatePassword(password) {
 
 export const Register: FC<PropsRegister> = (props) => {
   const [errorCreateAccount, setErrorCreateAccount] = useState("");
-  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
   const [isOpenModal, setOpenModal] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [values, setValues] = useState<FormValues>({
     username: "",
@@ -61,6 +62,13 @@ export const Register: FC<PropsRegister> = (props) => {
 
   const { signUp } = useAuth();
   const router = useRouter();
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
 
   const handleInputChange = (key: keyof FormValues, value: string) => {
     if (!trim(value)) {
@@ -115,12 +123,10 @@ export const Register: FC<PropsRegister> = (props) => {
 
     try {
       await signUp(values.email, values.password);
-      // router.push("/login");
       setOpenModal(true);
     } catch {
       setErrorCreateAccount("Failed to create an account");
     }
-    setLoading(false);
   };
 
   const handleSignInSignUp = (): void => {
@@ -140,6 +146,23 @@ export const Register: FC<PropsRegister> = (props) => {
   };
 
   const closeModalNotification = () => {};
+
+  if (loading)
+    return (
+      <div className="h-screen w-screen">
+        <div className="w-56 h-48 m-auto mt-48">
+          <Spinner
+            size={240}
+            spinnerColor={"#F37A24"}
+            spinnerWidth={2}
+            visible={true}
+            radius={40}
+            color={"#F37A24"}
+            stroke={5}
+          />
+        </div>
+      </div>
+    );
 
   return (
     <>

@@ -22,9 +22,12 @@ export const Authority = ({ children }) => {
         <div className="w-48 h-48 m-auto mt-48">
           <Spinner
             size={120}
-            spinnerColor={"#333"}
+            spinnerColor={"#F37A24"}
             spinnerWidth={2}
             visible={true}
+            radius={2}
+            color={"#F37A24"}
+            stroke={null}
           />
         </div>
       </div>

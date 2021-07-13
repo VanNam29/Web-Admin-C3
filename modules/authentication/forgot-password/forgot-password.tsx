@@ -1,10 +1,11 @@
 import router from "next/router";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { User } from "../../../types/type";
 import { useAuth } from "../../../utils/contexts/auth-context";
 import { upperFirst, lowerCase, trim } from "lodash";
 import { ModalCustom } from "../../../components/modal-custom/modal-custom";
 import { ModalNotification } from "../../../components/modal-notification/modal-notification";
+import Spinner from "react-spinner-material";
 
 interface PropsForgotPassword {}
 
@@ -20,6 +21,7 @@ function validateEmail(email: string) {
 
 export const ForgotPassword: FC<PropsForgotPassword> = () => {
   const [isOpenModal, setOpenModal] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [values, setValues] = useState<FormValues>({
     emailForgotPassword: "",
   });
@@ -39,6 +41,13 @@ export const ForgotPassword: FC<PropsForgotPassword> = () => {
       setNotifyResetPassword("Send email failed");
     }
   };
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
 
   const handleInputChange = (key: keyof FormValues, value: string) => {
     if (!trim(value)) {
@@ -68,6 +77,23 @@ export const ForgotPassword: FC<PropsForgotPassword> = () => {
   };
 
   const closeModalNotification = () => {};
+
+  if (loading)
+    return (
+      <div className="h-screen w-screen">
+        <div className="w-56 h-48 m-auto mt-48">
+          <Spinner
+            size={240}
+            spinnerColor={"#F37A24"}
+            spinnerWidth={2}
+            visible={true}
+            radius={40}
+            color={"#F37A24"}
+            stroke={5}
+          />
+        </div>
+      </div>
+    );
 
   return (
     <>

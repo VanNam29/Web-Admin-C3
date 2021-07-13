@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { FC, ReactElement } from "react";
+import React, { FC, ReactElement, useEffect } from "react";
 import { Header } from "../header/header";
 import { NavigationMenu } from "../navigation-menu/navigation-menu";
 import { ToastContainer, toast } from "react-toastify";
@@ -16,6 +16,7 @@ import {
 import { useAuth } from "../../utils/contexts/auth-context";
 import nookies from "nookies";
 import { Authority } from "../../utils/contexts/authority";
+import Spinner from "react-spinner-material";
 
 interface Props {
   children: ReactElement;
@@ -25,8 +26,16 @@ interface Props {
 export const MainLayout: FC<Props> = ({ children, title }) => {
   const [isShowNav, setIsShowNav] = useState(true);
   const [isOptionUser, setIsOptionUser] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const { logout } = useAuth();
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
 
   const handleShowNavigation = (isShow): void => {
     console.log(isShow);
@@ -54,6 +63,23 @@ export const MainLayout: FC<Props> = ({ children, title }) => {
       router.push("/login");
     } catch (error) {}
   };
+
+  if (loading)
+    return (
+      <div className="h-screen w-screen">
+        <div className="w-56 h-48 m-auto mt-48">
+          <Spinner
+            size={240}
+            spinnerColor={"#F37A24"}
+            spinnerWidth={2}
+            visible={true}
+            radius={40}
+            color={"#F37A24"}
+            stroke={5}
+          />
+        </div>
+      </div>
+    );
 
   return (
     <Authority>
