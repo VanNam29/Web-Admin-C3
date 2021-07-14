@@ -20,6 +20,7 @@ interface FormValues {
 export const Login: FC<PropsLogin> = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [isAuth, setIsAuth] = useState<string>("");
+  const [islogin, setLogin] = useState<boolean>(false);
   const [values, setValues] = useState<FormValues>({
     email: "",
     password: "",
@@ -73,6 +74,7 @@ export const Login: FC<PropsLogin> = () => {
     try {
       await login(values.email, values.password);
       setIsAuth("");
+      setLogin(true);
       router.push("/customers");
     } catch (error) {
       setIsAuth("The username or password you enter is invalid");
@@ -97,14 +99,14 @@ export const Login: FC<PropsLogin> = () => {
   }, []);
 
   const handleChangeCheckbox = (e) => {
-    if (e.target.checked) {
-      debugger;
-      Cookie.set("email", values.email, { expires: 999999999 });
-    } else {
-      debugger;
-      Cookie.remove("email");
+    if (islogin) {
+      if (e.target.checked) {
+        Cookie.set("email", values.email, { expires: 999999999 });
+      } else {
+        Cookie.remove("email");
+      }
+      setRemember(e.target.checked);
     }
-    setRemember(e.target.checked);
   };
 
   const handleForgotPassword = () => {
